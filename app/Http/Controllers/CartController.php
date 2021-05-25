@@ -24,13 +24,16 @@ class CartController extends Controller
         foreach($color as $color){
             $color_name = $color->color_name;
         }
-        $newProduct = [
-            'id' => $id,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'color_id' => $request->color_id,
-            'color_name' => $color_name
-        ];
+        if (!empty($carts)) {
+            $newProduct = [
+                'id' => $id,
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+                'color_id' => $request->color_id,
+                'color_name' => $color_name
+            ];
+        }
+        
         #check have param $id ?
         if (empty($carts)) {
             $newProduct = [
@@ -46,7 +49,7 @@ class CartController extends Controller
                 if ($cart['id'] == $id ) {
                     $newProduct = [
                         'id' => $id,
-                        'quantity' =>$carts[$id]['quantity']  + $request->quantity,
+                        'quantity' =>$cart['quantity']  + $request->quantity,
                         'price' => $request->price,
                         'color_id' => $request->color_id,
                         'color_name' => $color_name
