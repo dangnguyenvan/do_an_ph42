@@ -5,15 +5,15 @@
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="template_home/css/bootstrap.min.css">
+<link rel="stylesheet" href="/template_home/css/bootstrap.min.css">
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="template_home/css/font-awesome.min.css">
+<link rel="stylesheet" href="/template_home/css/font-awesome.min.css">
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="template_home/css/owl.carousel.css">
-<link rel="stylesheet" href="template_home/style.css">
-<link rel="stylesheet" href="template_home/css/responsive.css">
+<link rel="stylesheet" href="/template_home/css/owl.carousel.css">
+<link rel="stylesheet" href="/template_home/style.css">
+<link rel="stylesheet" href="/template_home/css/responsive.css">
 
 
 {{-- declare other file css --}}

@@ -16,16 +16,16 @@ class CategorySeeder extends Seeder
     {
         $date = date('Y-m-d H:i:s');
         $data = [
-            ['name' => 'oppo',
-            'description' => 'brand oppo',
+            ['name' => 'iphone',
+            'description' => 'brand iphone',
             'created_at' => $date,
             'updated_at' => $date,],
             ['name' => 'samsung',
             'description' => 'brand samsung',
             'created_at' => $date,
             'updated_at' => $date,],
-            ['name' => 'iphone',
-            'description' => 'brand iphone',
+            ['name' => 'oppo',
+            'description' => 'brand oppo',
             'created_at' => $date,
             'updated_at' => $date,]
         ];

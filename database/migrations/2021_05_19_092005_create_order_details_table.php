@@ -20,15 +20,11 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('color_id');
-            $table->unsignedBigInteger('price_id');
+            
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('promotion_id')->references('id')->on('promotions');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('color_id')->references('id')->on('colors');
-            $table->foreign('price_id')->references('id')->on('prices');
+            
         });
     }
 

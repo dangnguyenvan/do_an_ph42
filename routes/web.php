@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +17,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/show/{id}', [HomeController::class, 'show'])->name('show');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::get('/list', [ProductController::class, 'index'])->name('list');
+    Route::get('/show/{id}', [ProductController::class, 'show'])->name('show');
+
 });
+Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
+    Route::get('/', [CartController::class, 'getCartInfo'])->name('cart-info')->middleware('check_order_step_by_step'); 
+    Route::post('cart/{id}', [CartController::class, 'addCart'])->name('add-cart');
+    Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('check_order_step_by_step');
+    Route::post('checkout-complete', [CartController::class, 'checkoutComplete'])->name('checkout-complete');
+    Route::post('send-verify-code', [CartController::class, 'sendVerifyCode'])->middleware(['auth'])->name('send-verify-code');
+    Route::post('confirm-verify-code', [CartController::class, 'confirmVerifyCode'])->middleware(['auth'])->name('confirm-verify-code');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

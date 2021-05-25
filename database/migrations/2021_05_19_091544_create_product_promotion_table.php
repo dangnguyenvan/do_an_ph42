@@ -20,8 +20,7 @@ class CreateProductPromotionTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('promotion_id')->references('id')->on('promotions');
-            $table->foreign('product_id')->references('id')->on('products');
+            
         });
     }
 

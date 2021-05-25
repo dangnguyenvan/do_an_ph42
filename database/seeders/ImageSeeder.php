@@ -16,7 +16,7 @@ class ImageSeeder extends Seeder
     {
         $date = date('Y-m-d H:i:s');
         $data = [
-            ['name' => 'opA52.png',
+            ['name' => 'ip11.png',
             'product_id' => ' 1',
             'created_at' => $date,
             'updated_at' => $date,],
@@ -24,7 +24,7 @@ class ImageSeeder extends Seeder
             'product_id' => '2',
             'created_at' => $date,
             'updated_at' => $date,],
-            ['name' => 'ip8pl.png',
+            ['name' => 'opA52.png',
             'product_id' => '3',
             'created_at' => $date,
             'updated_at' => $date,]

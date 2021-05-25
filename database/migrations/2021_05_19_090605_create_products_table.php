@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('quantityInStore');
+            $table->double('price');
             $table->string('ram');
             $table->string('rom');
             $table->string('battery_capacity');
@@ -28,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            
         });
     }
 

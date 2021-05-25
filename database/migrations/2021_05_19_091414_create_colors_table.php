@@ -19,7 +19,7 @@ class CreateColorsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('product_id')->references('id')->on('products');
+            
         });
     }
 

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(ColorSeeder::class);
         $this->call(ImageSeeder::class);
-        $this->call(PriceSeeder::class);
+        
         $this->call(PromotionSeeder::class);
         $this->call(ProductPromotionSeeder::class);
         $this->call(RoleSeeder::class);
