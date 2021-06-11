@@ -24,13 +24,25 @@
                         <button type="submit"><img src="/template_home/img/search.png" alt=""></button>
                     </form>
                     </li>
-                    <li><a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a></li>
-                    <li><a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a></li>
-                    <li><a href="{{ route('cart.cart-info') }}">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a></li>
+                    <li></li>
+                    <li><a href="{{ route('login') }}" class="fa fa-user">{{Auth::user() != null ? 'hi: '. Auth::user()->name  : 'Log in' }} </a></li>
+                    <li><a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">{{Auth::user() != null ? '' : 'Register'}}</a></li>
+                    @php
+                    $cartNumber = 0;
+                    if (Session::has('carts')) {
+                        foreach (Session::get('carts') as $key => $value) {
+                            $cartNumber += intval($value['quantity']);
+                        }
+                    }
+                    @endphp
+                    <li><a href="{{ route('cart.cart-info') }}">Cart -  <i class="fa fa-shopping-cart"></i> <span class="product-count">{{$cartNumber}}</span></a></li>
               
                     
                 </ul>
+                
             </div>  
+            
         </div>
+        
     </div>
 </div>

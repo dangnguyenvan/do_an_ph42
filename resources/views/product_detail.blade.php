@@ -21,7 +21,7 @@
             <div class="col-sm-6">
                 <div class="product-images">
                     <div class="product-main-img">
-                        <img src="/images/{{$pr->oneimage->name}}" alt="">
+                        <img style="width: 100%" src="/images/{{$pr->oneimage->name}}" alt="">
                     </div>
                     
                     <div class="product-gallery">
@@ -43,24 +43,32 @@
                             <p><b>Front Camera:</b> {{$pr->front_camera}}</p>
                             <p><b>Rear Camera:</b> {{$pr->rear_camera}}</p>
                             <p><b>Battery Capacity:</b> {{$pr->battery_capacity}}</p>
+                            <p><b>Color:</b> {{$pr->color}}</p>
                             <p><b>Description:</b> {{$pr->description}}</p>
                         </div>
                     </div>
                     
                     <form action="{{ route('cart.add-cart', $pr->id) }}" method="POST"" class="cart">
+                        @csrf
                         <input type="hidden" name="price" value="{{ $pr->price}}">
                         <div class="product-inner-price">   
-                            <b>price:</b><ins>${{$pr->price}}</ins>
-                            {{-- <del>$100.00</del> --}}
+                            <b>Price: </b><ins>${{$pr->price}}</ins><br> 
+                            @foreach ($pr->promotion as $promotion)
+                            
+                            <b>Discount: {{$promotion->discount}}%</b><br>
+                            @php
+                                $price=$pr->price;
+                                $discount=$promotion->discount;
+                                $promotional_price = $promotion->promotional_price($price,$discount);
+                            @endphp
+                            <b>Promotional price:  </b><ins>${{$promotional_price}}</ins>
+                            <input type="hidden" name="promotion_id" value="{{$promotion->id}}">
+                            <input type="hidden" name="discount" value="{{$promotion->discount}}">
+                            @endforeach
                         </div>
-                        @csrf
-                        <div>
-                        <p><b>Color</b></p>
-                        @foreach ($colors as $key => $color)
                         
-                        <input style="height:30px; width:30px;"type="radio" name="color_id"   value="{{$color->id}}" {{$key == 0 ? 'checked' : ''}}  >
-                        <label><p>{{$color->color_name}}</p></label>
-                        @endforeach
+                        <div>
+                        
                         </div>
                         <div class="quantity">
                             <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">

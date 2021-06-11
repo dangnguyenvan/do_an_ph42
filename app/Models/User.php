@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasFactory, Notifiable;
 
@@ -20,6 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'birthday',
+        'address'
     ];
 
     /**
@@ -41,9 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_rolos()
+    
+    public function roles()
     {
-        return $this->hasMany(UserRole::class);
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
     public function comments()
@@ -54,5 +58,10 @@ class User extends Authenticatable
     public function oders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('role_name',$role)->first();
     }
 }

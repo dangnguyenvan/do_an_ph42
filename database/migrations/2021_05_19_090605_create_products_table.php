@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->string('battery_capacity');
             $table->string('front_camera');
             $table->string('rear_camera');
+            $table->string('color');
             $table->string('status')->default(ActiveStatus::ACTIVE);
             $table->unsignedBigInteger('category_id');
             $table->timestamps();

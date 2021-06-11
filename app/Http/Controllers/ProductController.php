@@ -6,6 +6,7 @@ use App\Enums\ActiveStatus;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,7 +21,8 @@ class ProductController extends Controller
         $data = [];
         $categories = Category::get();
         
-        $all_products = Product::where('status',ActiveStatus::ACTIVE)->with('images')->paginate(12);
+        $all_products = Product::where('status',ActiveStatus::ACTIVE)->paginate(12);
+        
         $data['categories'] =$categories;
         $data['all_products'] = $all_products;
         return view('list_product',$data);
@@ -57,17 +59,12 @@ class ProductController extends Controller
     {
         $data = [];
         $categories = Category::get();
-        $product_detail = Product::with('colors')->with('images')->where('status',ActiveStatus::ACTIVE)
+        $product_detail = Product::where('status',ActiveStatus::ACTIVE)
         ->where('id',$id)->get();
     
-      
-        foreach($product_detail as $key =>$pr){
-            
-           $colors = Color::where('product_id',$pr->id)->get();
-        }
         //dd($product_detail);
         $data['categories'] =$categories;
-        $data['colors'] =$colors;
+       
         $data['product_detail'] = $product_detail;
         return view('product_detail',$data);
     }

@@ -23,11 +23,7 @@ class CreateSetForeignKey extends Migration
                 $table->foreign('product_id')->references('id')->on('products');
             });
         }
-        if (Schema::hasColumn('colors', 'product_id') && Schema::hasTable('products')) {
-            Schema::table('colors', function (Blueprint $table) {
-                $table->foreign('product_id')->references('id')->on('products');
-            });
-        }
+        
         if (Schema::hasColumn('product_promotion', 'product_id') && Schema::hasTable('products')) {
             Schema::table('product_promotion', function (Blueprint $table) {
                 $table->foreign('product_id')->references('id')->on('products');

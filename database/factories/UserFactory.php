@@ -26,7 +26,7 @@ class UserFactory extends Factory
         $password = bcrypt('password');
 
         return [
-            'full_name' => $this->faker->name,
+            'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
            
             'birthday' =>date('Y-m-d'),

@@ -9,16 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function product_promotions()
-    {
-        return $this->hasMany(ProductPromotion::class);
-    }
+   
 
-    public function colors()
-    {
-        return $this->hasMany(Color::class);
-    }
-    
+   
     public function images()
     {
         return $this->hasMany(Image::class);
@@ -28,7 +21,10 @@ class Product extends Model
         return $this->hasOne(Image::class);
     }
     
-
+    public function order_details()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -38,6 +34,17 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
     
+    public function promotion()
+    {
+        return $this->belongsToMany(Promotion::class, 'product_promotion', 'product_id', 'promotion_id');
+    }
+    
+    public function getTotal($quantity, $price){
+        return $total = $quantity * $price;
+    }
+    public static function promotional_price($price,$discount){
+       
+        return $promotional_price = $price * (100 - $discount)/100 ;
+    }
 }

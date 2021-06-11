@@ -20,8 +20,8 @@ class CreateOrdersTable extends Migration
             $table->date('order_date');
             $table->double('total_price');
             $table->string('status')->default(OrderStatus::PENDING);
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('shipping_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('shipping_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

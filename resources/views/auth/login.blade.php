@@ -11,7 +11,10 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+        @if (Session::has('mess'))
+            <p style="color: red">{{Session::get('mess')}}</p>
+            
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

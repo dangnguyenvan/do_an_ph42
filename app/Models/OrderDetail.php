@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     use HasFactory;
+    protected $table = "order_details";
+    protected $fillable = [
+        'product_id',
+        'order_id',
+        'price',
+        'quantity',
+        'promotion_id'
+    ];
+
+
+
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -25,4 +37,8 @@ class OrderDetail extends Model
         return $this->belongsTo(Color::class);
     }
     
+    public static function promotional_price($price,$discount){
+       
+        return $promotional_price = $price * (100 - $discount)/100 ;
+    }
 }

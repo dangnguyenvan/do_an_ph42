@@ -50,6 +50,9 @@
                                 </thead>
                                 
                                 <tbody>
+                                    @php
+                                        $order_total = 0;
+                                    @endphp
                                     @foreach ($products as $key => $pr)
                                     <tr class="cart_item">
                                        <td>{{$key+1}}</td>
@@ -60,40 +63,59 @@
                                             <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="/images/{{$pr->oneimage->name}}"></a>
                                         </td>
 
-                                       <td>{{$carts[$pr->id]['color_name']}}</td>
+                                       <td>{{$pr->color}}</td>
 
-                                        <td class="product-price">
-                                            <span class="amount">${{$carts[$pr->id]['price']}}</span> 
+                                        <td class="product-carousel-price">
+                                            @if ($carts[$pr->id]['promotion_id'] != null)
+                                            <span class="amount">
+                                                @php
+                                                    $price=$pr->price;
+                                                    $discount=$carts[$pr->id]['discount'];
+                                                    $price = $pr->promotional_price($price,$discount);
+                                                @endphp 
+                                                <del>${{$carts[$pr->id]['price']}}</del> 
+                                                <ins>${{$price}}</ins>
+                                            </span>
+                                            @else
+                                            @php
+                                                $price=$carts[$pr->id]['price'];
+                                            @endphp
+                                            <span class="amount">${{$price}}</span> 
+                                            @endif
                                         </td>
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="{{$carts[$pr->id]['quantity']}}" min="0" step="1">
-                                                
+                                                <form action="{{ route('cart.update_cart',$pr->id) }}">
+                                                <input type="number" size="4" name="quantity" class="input-text qty text" title="Qty" value="{{$carts[$pr->id]['quantity']}}" min="0" step="1">
+                                                <button type="submit" class="fa fa-refresh"></button>
+                                                </form>
                                             </div>
                                         </td>
 
                                         <td class="product-subtotal">
                                             <span class="amount">
                                                     @php
-                                                    $money = $carts[$pr->id]['quantity'] * $carts[$pr->id]['price'];
-                                                     echo ($money) ;
-                                
+                                                    
+                                                    $quantity =$carts[$pr->id]['quantity'] ;
+                                                    $total = $pr->getTotal($price, $quantity);
+                                                     echo "$" ; echo $total ;
+                                                        $order_total +=$total; 
                                                     @endphp
                                             </span> 
                                         </td>
                                         <td class="product-remove">
-                                            <a title="Remove this item" class="remove" href="#">×</a> 
+                                            <a title="Remove this item" class="remove" href="{{ route('cart.remove_cart',$pr->id) }}"><i class="fa fa-trash-o"></i></a> 
                                         </td>
                                     </tr>
                                     
                                 </tbody>
+                                
                                 @endforeach
                             </table>
                            
                             
-                            <a href="{{ route('home') }}"><input type="submit" value="continue shopping" name="update_cart" class="button"></a>
+                            <a href="{{ route('home') }}"><input type="submit" value="continue shopping" name="" class="button"></a>
                             <div class="cart_totals ">
                                 <h2>Cart Totals</h2>
 
@@ -101,7 +123,7 @@
                                     <tbody>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">£15.00</span></td>
+                                            <td><span class="amount">${{$order_total}}</span></td>
                                         </tr>
 
                                         <tr class="shipping">
@@ -111,11 +133,14 @@
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£15.00</span></strong> </td>
+                                            <td><strong><span class="amount">${{$order_total}}</span></strong> </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                    
+                                    <a href="{{ route('cart.checkout') }}"><button type="submit" >proceed to checkout</button></a>
+                                
+                                
                             </div>
                             
                        

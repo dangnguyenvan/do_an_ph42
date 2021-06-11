@@ -15,6 +15,7 @@
             </div>
         </div>
     </div>
+    @break
     @endforeach
     
     @elseif (!empty($product_by_search))
@@ -60,8 +61,15 @@
                         </div>
                         <h2>{{$product->name}}</h2>
                         <div class="product-carousel-price">
-                            <b>price:</b><ins>${{$product->price}}</ins> 
-                             {{-- <del>$999.00</del> --}}
+                            <b>Price: </b><ins>${{$product->price}}</ins><br> 
+                            @foreach ($product->promotion as $promotion)
+                            
+                            <b>Discount: {{$promotion->discount}}%</b><br>
+                            @php
+                                $promotional_price = $promotion->promotional_price($price=$product->price,$discount=$promotion->discount);
+                            @endphp
+                            <b>Promotional price:  </b><ins>${{$promotional_price}}</ins>
+                            @endforeach
                         </div>
                         <div>&nbsp</div>
                     </div>
@@ -80,8 +88,15 @@
                         </div>
                         <h2>{{$product->name}}</h2>
                         <div class="product-carousel-price">
-                            <b>price:</b><ins>${{$product->price}}</ins> 
-                             {{-- <del>$999.00</del> --}}
+                            <b>Price: </b><ins>${{$product->price}}</ins><br> 
+                            @foreach ($product->promotion as $promotion)
+                            
+                            <b>Discount: {{$promotion->discount}}%</b><br>
+                            @php
+                                $promotional_price = $promotion->promotional_price($price=$product->price,$discount=$promotion->discount);
+                            @endphp
+                            <b>Promotional price:  </b><ins>${{$promotional_price}}</ins>
+                            @endforeach 
                         </div>
                         <div>&nbsp</div>
                     </div>
@@ -90,10 +105,10 @@
                
                 @elseif(!empty($all_products))
                 @foreach ($all_products as $key => $product)
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-product">
+                <div  class="col-md-3 col-sm-6">
+                    <div  class="single-product">
                         <div class="product-f-image">
-                            <img style="width: 100%" src="/images/{{$product->oneimage->name}}" alt="">
+                            <img  src="/images/{{$product->oneimage->name}}" alt="">
                             <div class="product-hover">
                                 
                                 <a href="{{ route('product.show', $product->id) }}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
@@ -101,19 +116,26 @@
                         </div>
                         <h2>{{$product->name}}</h2>
                         <div class="product-carousel-price">
+                            <b>Price: </b><ins>${{$product->price}}</ins><br> 
                             
-                            <b>price:</b><ins>${{$product->price}}</ins> 
-                             {{-- <del>$999.00</del> --}}
+                            @foreach ($product->promotion as $promotion)
+                            <b>Discount: {{$promotion->discount}}%</b><br>
+                            @php
+                                $promotional_price = $promotion->promotional_price($price=$product->price,$discount=$promotion->discount);
+                            @endphp
+                            <b>Promotional price:  </b><ins>${{$promotional_price}}</ins>
+                            @endforeach
                         </div>
                         <div>&nbsp</div>
                     </div>
                 </div>
                 @endforeach
-                
-                {{ $all_products->links() }}
                 @endif
                 
             </div>
+           @if (!empty($all_products))
+               {{ $all_products->links() }}
+           @endif
         </div>
     </div>
     

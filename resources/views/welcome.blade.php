@@ -31,95 +31,37 @@
                 <div class="latest-product">
                     <h2 class="section-title">Promotional Products</h2>
                     <div class="product-carousel">
+                        @foreach ($product_promotions as $product_promotion)
                         <div class="single-product">
+                            @foreach ($product_promotion->product as $pr)
                             <div class="product-f-image">
-                                <img src="template_home/img/product-1.jpg" alt="">
+                                <img src="/images/{{$pr->oneimage->name}}" alt="">
                                 <div class="product-hover">
                                     
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    <a href="{{ route('product.show', $pr->id) }}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                 </div>
                             </div>
+                           
+                            <h2><a href="single-product.html">{{$pr->name}}</a></h2>
                             
-                            <h2><a href="single-product.html">Samsung Galaxy s5- 2015</a></h2>
+                            
                             
                             <div class="product-carousel-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div> 
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="template_home/img/product-2.jpg" alt="">
-                                <div class="product-hover">
-                                    
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
+                               
+                            <b>Discount: {{$product_promotion->discount}}%</b><br>
+                            @php
+                                $price=$pr->price;
+                                $discount=$product_promotion->discount;
+                                $promotional_price = $product_promotion->promotional_price($price,$discount);
+                            @endphp
+                            
+                            
+                            <b>Price: </b><del>${{$pr->price}}</del> <ins>${{$promotional_price}}</ins>
                             </div>
-                            
-                            <h2>Nokia Lumia 1320</h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins> <del>$999.00</del>
-                            </div> 
+                            @endforeach 
                         </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="template_home/img/product-3.jpg" alt="">
-                                <div class="product-hover">
-                                    
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-                            
-                            <h2>LG Leon 2015</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                                 
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="template_home/img/product-4.jpg" alt="">
-                                <div class="product-hover">
-                                    
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-                            
-                            <h2><a href="single-product.html">Sony microsoft</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$200.00</ins> <del>$225.00</del>
-                            </div>                            
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="template_home/img/product-5.jpg" alt="">
-                                <div class="product-hover">
-                                    
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-                            
-                            <h2>iPhone 6</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$1200.00</ins> <del>$1355.00</del>
-                            </div>                                 
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="template_home/img/product-6.jpg" alt="">
-                                <div class="product-hover">
-                                    
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-                            
-                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins>
-                            </div>                            
-                        </div>
+                        @endforeach
+                        
                     </div>
                 </div>
             </div>

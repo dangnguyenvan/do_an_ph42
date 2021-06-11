@@ -17,7 +17,7 @@ class CreateShippingAddressTable extends Migration
             $table->id();
             $table->string('address');
             $table->string('email');
-            $table->string('full_name');
+            $table->string('name');
             $table->integer('phone');
             $table->timestamps();
             $table->softDeletes();

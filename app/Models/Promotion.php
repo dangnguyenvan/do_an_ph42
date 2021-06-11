@@ -9,8 +9,12 @@ class Promotion extends Model
 {
     use HasFactory;
 
-    public function product_promotions()
+    public function product()
     {
-        return $this->hasMany(ProductPromotion::class);
+        return $this->belongsToMany(Product::class, 'product_promotion', 'product_id', 'promotion_id');
+    }
+    public static function promotional_price($price,$discount){
+       
+        return $promotional_price = $price * (100 - $discount)/100 ;
     }
 }
